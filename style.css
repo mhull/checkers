@@ -1,0 +1,60 @@
+/**
+ * Board
+ */
+#board {
+	display: inline-block;
+	background: yellow;
+	padding: 1px;
+	border: solid 3px #000;
+}
+
+#board::after {
+	clear: left;
+	display: block;
+	content: ' ';
+}
+
+/**
+ * Squares
+ */
+.square {
+	float: left;
+	width: 40px;
+	height: 40px;
+	position: relative;
+}
+
+.square:nth-of-type( 8n + 1 ) {
+	clear: left;
+}
+
+.red.square {
+	background: red;
+}
+.black.square {
+	background: black;
+}
+
+/**
+ * Checkers
+ */
+.checker {
+	border: solid 1px #fff;
+    border-radius: 50%;
+    bottom: 0;
+    height: 68%;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 68%;
+}
+
+.red.checker {
+	background: red;
+}
+.black.checker {
+	background: black;
+	border: solid: 1px #ddd;
+}

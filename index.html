@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app='checkers' >
+	<head>
+		<title>Checkers</title>
+		<link rel='stylesheet' href='style.css' />
+		<script src="dist/checkers.js"></script>
+	</head>
+	<body>
+		<header>
+			<h1>Checkers</h1>
+			<div id="status">
+				<div id="message"></div>
+				<div id="details"></div>
+			</div>
+		</header>
+		<main ng-view>
+			<div id='board' ng-controller='BoardController' >
+				<div 
+					ng-repeat="square in squares"
+					class="square {{square.color}} row-{{square.row}} col-{{square.col}}"
+				>{{square.index}}
+					<div class="{{ square.checker ? 'checker' : '' }} {{ square.checker.color }}"></div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>
