@@ -17,9 +17,14 @@
 			<div id='board' ng-controller='BoardController' >
 				<div 
 					ng-repeat="square in squares"
-					class="square {{square.color}} row-{{square.row}} col-{{square.col}}"
+					class="square {{square.color}} row-{{square.row}} col-{{square.col}}
+					{{square.highlight ? 'highlight' : ''}}"
 				>{{square.index}}
-					<div class="{{ square.checker ? 'checker' : '' }} {{ square.checker.color }}"></div>
+					<div 
+						ng-controller='CheckerController'
+						class="{{ square.checker ? 'checker' : '' }} {{ square.checker.color }}"
+						ng-click="square.checker ? initCheckerMove( square ) : null"
+					></div>
 				</div>
 			</div>
 		</main>
