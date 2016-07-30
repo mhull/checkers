@@ -16,8 +16,14 @@ module.exports = function( checkers ) {
 		 */
 		$scope.initCheckerMove = function( square ) {
 
-			// the possible squares we could move to
-			var possibleSquares = [];
+			var upLeft = $scope.squares[ square.index - 9 ];
+			var upRight = $scope.squares[ square.index - 7 ];
+
+			var downLeft = $scope.squares[ square.index + 7  ];
+			var downRight = $scope.squares[ square.index + 9 ];
+
+			// the legal squares we could move to
+			var legalSquares = [];
 
 			/**
 			 * If a black checker was clicked
@@ -28,12 +34,14 @@ module.exports = function( checkers ) {
 					return;
 				}
 
-				if( 0 < square.col ) {
-					possibleSquares.push( square.index - 9 );
+				// if we can move to the upper left
+				if( 0 < square.col && ! upLeft.checker ) {
+					legalSquares.push( upLeft.index );
 				}
 
-				if( 7 > square.col  ) {
-					possibleSquares.push( square.index - 7 );
+				// if we can move to the upper right
+				if( 7 > square.col  && ! upRight.checker ) {
+					legalSquares.push( upRight.index );
 				}
 			}
 
@@ -46,21 +54,23 @@ module.exports = function( checkers ) {
 					return;
 				}
 
-				if( 0 < square.col ) {
-					possibleSquares.push( square.index + 7 );
+				// if we can move to the lower left
+				if( 0 < square.col && ! downLeft.checker ) {
+					legalSquares.push( downLeft.index );
 				}
 
-				if( 7 > square.col ) {
-					possibleSquares.push( square.index + 9 );
+				if( 7 > square.col && ! downRight.checker ) {
+					legalSquares.push( downRight.index );
 				}
 			}
 
-			for( index in possibleSquares ) {
-				$scope.squares[ possibleSquares[ index ] ].highlight = true;
+			for( index in legalSquares ) {
+				$scope.squares[ legalSquares[ index ] ].highlight = true;
 			}
-		}
 
-	} ] );
+		} // end: initCheckerMove()
+
+	} ] ); // end: board controller
 
 	checkers.controller( 'CheckerController', [ '$scope', function( $scope ) {
 
