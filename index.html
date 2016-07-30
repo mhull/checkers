@@ -19,6 +19,7 @@
 					ng-repeat="square in squares"
 					class="square {{square.color}} row-{{square.row}} col-{{square.col}}
 					{{square.highlight ? 'highlight' : ''}}"
+					ng-click="square.highlight ? confirmCheckerMove( square ) : null"
 				>{{square.index}}
 					<div 
 						ng-controller='CheckerController'

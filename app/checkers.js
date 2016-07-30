@@ -10,5 +10,7 @@ function checkers() {
 	var angular = require( 'angular' );
 	_this = angular.module( 'checkers', [] );
 
+	_this.activeChecker = null;
+
 	return _this;
 };

@@ -2,6 +2,8 @@
 var square = require( './square.js' );
 module.exports = function( checkers ) {
 
+	checkers.activeCheckerIndex = - 1;
+
 	/**
 	 * Board controller
 	 */
@@ -12,10 +14,34 @@ module.exports = function( checkers ) {
 			$scope.squares.push( square( i ) );
 		}
 
+		$scope.squares.each = function( func ) {
+
+			for( let i = 0; i < $scope.squares.length; i++ ) {
+				func( $scope.squares[ i ] );
+			}
+		}
+
+		/**
+		 * Clear highlighted squares
+		 */
+		$scope.clearHighlights = function() {
+			$scope.squares.each( function( square ) {
+				square.highlight = false;
+			} );
+		}
+
 		/**
 		 * Attempt to move a checker when clicked
 		 */
 		$scope.initCheckerMove = function( square ) {
+
+			// make sure no other checkers are active
+			for( index in $scope.squares ) {
+				var _this_square = $scope.squares[ index ];
+				if( _this_square.checker && _this_square.checker.active ) {
+					return;
+				}
+			}
 
 			var upLeft = $scope.squares[ square.index - 9 ];
 			var upRight = $scope.squares[ square.index - 7 ];
@@ -60,16 +86,44 @@ module.exports = function( checkers ) {
 					legalSquares.push( downLeft.index );
 				}
 
+				// if we can move to the lower right
 				if( 7 > square.col && ! downRight.checker ) {
 					legalSquares.push( downRight.index );
 				}
 			}
 
+			// set this checker as active
+			if( legalSquares.length > 0 ) {
+				square.checker.active = true;
+				checkers.activeCheckerIndex = square.index;
+			}
+
+			// highlight any legal squares
 			for( index in legalSquares ) {
 				$scope.squares[ legalSquares[ index ] ].highlight = true;
 			}
 
 		} // end: initCheckerMove()
+
+		/**
+		 * Move a checker when a legal highlighted square is clicked
+		 */
+		$scope.confirmCheckerMove = function( _new_square ) {
+
+			var index = checkers.activeCheckerIndex;
+			var _old_square = $scope.squares[ index ];
+
+			// unset the old checker
+			var checker = _old_square.checker;
+			_old_square.checker = null;
+
+			// set the new checker
+			checker.active = false;
+			_new_square.checker = checker;
+
+			$scope.clearHighlights();
+
+		} // end: confirmCheckerMove()
 
 	} ] ); // end: board controller
 
@@ -89,6 +143,7 @@ module.exports = function ( i ) {
 	var _this = {};
 
 	_this.color = ( i < 24 ) ? 'red' : 'black';
+	_this.active = false;
 
 	return _this;
 };
@@ -104,6 +159,8 @@ function checkers() {
 	 */
 	var angular = require( 'angular' );
 	_this = angular.module( 'checkers', [] );
+
+	_this.activeChecker = null;
 
 	return _this;
 };
