@@ -24,7 +24,10 @@
 					<div 
 						ng-controller='CheckerController'
 						class="{{ square.checker ? 'checker' : '' }} {{ square.checker.color }}"
-						ng-click="square.checker ? initCheckerMove( square ) : null"
+						ng-click="square.checker ? 
+							( square.checker.active ? 
+								cancelCheckerMove( square ) : initCheckerMove( square ) 
+							) : null"
 					></div>
 				</div>
 			</div>

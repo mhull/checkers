@@ -101,6 +101,16 @@ module.exports = function( checkers ) {
 
 		} // end: initCheckerMove()
 
+		$scope.cancelCheckerMove = function( square ) {
+
+			square.checker.active = false;
+			checkers.activeCheckerIndex = -1;
+
+			for( index in $scope.squares ) {
+				$scope.squares[index].highlight = false;
+			}
+		} // end: cancelCheckerMove()
+
 		/**
 		 * Move a checker when a legal highlighted square is clicked
 		 */
@@ -118,7 +128,7 @@ module.exports = function( checkers ) {
 			_new_square.checker = checker;
 
 			$scope.clearHighlights();
-			checker.activeCheckerIndex = null;
+			checkers.activeCheckerIndex = -1;
 
 		} // end: confirmCheckerMove()
 
