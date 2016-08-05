@@ -1,4 +1,5 @@
-var square = require( './square.js' );
+var square = require( '../models/square.js' );
+
 module.exports = function( checkers ) {
 
 	checkers.activeCheckerIndex = - 1;

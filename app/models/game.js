@@ -1,8 +1,8 @@
 /**  
  * Exports the main `checkers` object into the main scope
  */
-module.exports = checkers();
-function checkers() {
+module.exports = game();
+function game() {
 
 	/**
 	 * The main `checkers` angular module
@@ -10,6 +10,7 @@ function checkers() {
 	var angular = require( 'angular' );
 	_this = angular.module( 'checkers', [] );
 
+	_this.activePlayer = 'black';
 	_this.activeChecker = null;
 
 	return _this;

@@ -1,6 +1,21 @@
 /**
+ * Status
+ */
+header {
+	text-align: center;
+}
+#message {
+	margin: 1em 0;
+}
+
+/**
  * Board
  */
+main {
+	width: 328px;
+	margin: auto;
+}
+
 #board {
 	display: inline-block;
 	background: yellow;

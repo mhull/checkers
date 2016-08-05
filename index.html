@@ -6,31 +6,34 @@
 		<script src="dist/checkers.js"></script>
 	</head>
 	<body>
-		<header>
-			<h1>Checkers</h1>
-			<div id="status">
-				<div id="message"></div>
-				<div id="details"></div>
-			</div>
-		</header>
-		<main ng-view>
-			<div id='board' ng-controller='BoardController' >
-				<div 
-					ng-repeat="square in squares"
-					class="square {{square.color}} row-{{square.row}} col-{{square.col}}
-					{{square.highlight ? 'highlight' : ''}}"
-					ng-click="square.highlight ? confirmCheckerMove( square ) : null"
-				>{{square.index}}
-					<div 
-						ng-controller='CheckerController'
-						class="{{ square.checker ? 'checker' : '' }} {{ square.checker.color }}"
-						ng-click="square.checker ? 
-							( square.checker.active ? 
-								cancelCheckerMove( square ) : initCheckerMove( square ) 
-							) : null"
-					></div>
+		<div id="game-area" ng-controller='GameController' ng-view>
+			<header>
+				<h1>Checkers</h1>
+				<div id="status">
+					<div id="message">{{ message }}</div>
+					<div id='turns'><p>Turns: {{ turns }}</p></div>
+					<div id="details"></div>
 				</div>
-			</div>
-		</main>
+			</header>
+			<main>
+				<div id='board' ng-controller='BoardController' >
+					<div 
+						ng-repeat="square in squares"
+						class="square {{square.color}} row-{{square.row}} col-{{square.col}}
+						{{square.highlight ? 'highlight' : ''}}"
+						ng-click="square.highlight ? confirmCheckerMove( square ) : null"
+					>{{square.index}}
+						<div 
+							ng-controller='CheckerController'
+							class="{{ square.checker ? 'checker' : '' }} {{ square.checker.color }}"
+							ng-click="square.checker ? 
+								( square.checker.active ? 
+									cancelCheckerMove( square ) : initCheckerMove( square ) 
+								) : null"
+						></div>
+					</div>
+				</div>
+			</main>
+		</div><!--  #game-area -->
 	</body>
 </html>
