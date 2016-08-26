@@ -1,32 +1,35 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var square = require( '../models/square.js' );
 
-module.exports = function( checkers ) {
+module.exports = function( game ) {
 
-	checkers.activeCheckerIndex = - 1;
+	game.activeCheckerIndex = - 1;
 
 	/**
 	 * Board controller
 	 */
-	checkers.controller( 'BoardController', [ '$scope', function( $scope ) {
+	game.controller( 'BoardController', [ function() {
 
-		$scope.squares = [];
+		var board = this;
+
+		board.squares = [];
+
 		for( let i = 0; i < 64; i++  ) {
-			$scope.squares.push( square( i ) );
+			board.squares.push( square( i ) );
 		}
 
-		$scope.squares.each = function( func ) {
+		board.squares.each = function( func ) {
 
-			for( let i = 0; i < $scope.squares.length; i++ ) {
-				func( $scope.squares[ i ] );
+			for( let i = 0; i < board.squares.length; i++ ) {
+				func( board.squares[ i ] );
 			}
 		}
 
 		/**
 		 * Clear highlighted squares
 		 */
-		$scope.clearHighlights = function() {
-			$scope.squares.each( function( square ) {
+		board.clearHighlights = function() {
+			board.squares.each( function( square ) {
 				square.highlight = false;
 			} );
 		}
@@ -34,18 +37,18 @@ module.exports = function( checkers ) {
 		/**
 		 * Attempt to move a checker when clicked
 		 */
-		$scope.initCheckerMove = function( square ) {
+		board.initCheckerMove = function( square ) {
 
-			// make sure no other checkers are active
-			if( checkers.activeCheckerIndex > -1 ) {
+			// make sure no other game are active
+			if( game.activeCheckerIndex > -1 ) {
 				return;
 			}
 
-			var upLeft = $scope.squares[ square.index - 9 ];
-			var upRight = $scope.squares[ square.index - 7 ];
+			var upLeft = board.squares[ square.index - 9 ];
+			var upRight = board.squares[ square.index - 7 ];
 
-			var downLeft = $scope.squares[ square.index + 7  ];
-			var downRight = $scope.squares[ square.index + 9 ];
+			var downLeft = board.squares[ square.index + 7  ];
+			var downRight = board.squares[ square.index + 9 ];
 
 			// the legal squares we could move to
 			var legalSquares = [];
@@ -93,33 +96,33 @@ module.exports = function( checkers ) {
 			// set this checker as active
 			if( legalSquares.length > 0 ) {
 				square.checker.active = true;
-				checkers.activeCheckerIndex = square.index;
+				game.activeCheckerIndex = square.index;
 			}
 
 			// highlight any legal squares
 			for( index in legalSquares ) {
-				$scope.squares[ legalSquares[ index ] ].highlight = true;
+				board.squares[ legalSquares[ index ] ].highlight = true;
 			}
 
 		} // end: initCheckerMove()
 
-		$scope.cancelCheckerMove = function( square ) {
+		board.cancelCheckerMove = function( square ) {
 
 			square.checker.active = false;
-			checkers.activeCheckerIndex = -1;
+			game.activeCheckerIndex = -1;
 
-			for( index in $scope.squares ) {
-				$scope.squares[index].highlight = false;
+			for( index in board.squares ) {
+				board.squares[index].highlight = false;
 			}
 		} // end: cancelCheckerMove()
 
 		/**
 		 * Move a checker when a legal highlighted square is clicked
 		 */
-		$scope.confirmCheckerMove = function( _new_square ) {
+		board.confirmCheckerMove = function( _new_square ) {
 
-			var index = checkers.activeCheckerIndex;
-			var _old_square = $scope.squares[ index ];
+			var index = game.activeCheckerIndex;
+			var _old_square = board.squares[ index ];
 
 			// unset the old checker
 			var checker = _old_square.checker;
@@ -129,32 +132,63 @@ module.exports = function( checkers ) {
 			checker.active = false;
 			_new_square.checker = checker;
 
-			$scope.clearHighlights();
-			checkers.activeCheckerIndex = -1;
+			board.clearHighlights();
+			game.activeCheckerIndex = -1;
 
 		} // end: confirmCheckerMove()
 
 	} ] ); // end: board controller
 
-	checkers.controller( 'CheckerController', [ '$scope', function( $scope ) {
+	game.directive( 'board', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'views/board.html',
+			controller: 'BoardController',
+			controllerAs: 'board',
+		};
+	} );
+
+	game.controller( 'CheckerController', [ '$scope', function( $scope ) {
 
 		$scope.color = _this.color;
 	} ] );
 }
-},{"../models/square.js":6}],2:[function(require,module,exports){
+},{"../models/square.js":7}],2:[function(require,module,exports){
 module.exports = function( game ) {
-	game.controller( 'GameController', [ '$scope', function( $scope ) {
 
-		$scope.message = 'Welcome. Black goes first.';
-		$scope.turns = 0;
+	game.controller( 'GameController', [ function( $scope ) {
+
+		var game = this;
+
+		game.message = 'Welcome. Black goes first.';
+		game.turns = 0;
 	} ] );
+
+	game.directive( 'game', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'views/game.html',
+			controller: 'GameController',
+			controllerAs: 'game'
+		};
+	} );
 };
 },{}],3:[function(require,module,exports){
+module.exports = function( game ) {
+
+	game.controller( 'SquareController', [ function() {
+
+		var square = this;
+
+	} ] );
+};
+},{}],4:[function(require,module,exports){
 var game = require( './models/game.js' );
 
 var gameController = require( './controllers/game.js' )( game );
 var boardController = require( './controllers/board.js' )( game );
-},{"./controllers/board.js":1,"./controllers/game.js":2,"./models/game.js":5}],4:[function(require,module,exports){
+var squareController = require( './controllers/square.js' )( game );
+},{"./controllers/board.js":1,"./controllers/game.js":2,"./controllers/square.js":3,"./models/game.js":6}],5:[function(require,module,exports){
 /**
  * Checker factory module
  *
@@ -169,7 +203,7 @@ module.exports = function ( i ) {
 
 	return _this;
 };
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /**  
  * Exports the main `checkers` object into the main scope
  */
@@ -187,7 +221,7 @@ function game() {
 
 	return _this;
 };
-},{"angular":8}],6:[function(require,module,exports){
+},{"angular":9}],7:[function(require,module,exports){
 var checker = require( './checker.js' );
 
 /**
@@ -243,7 +277,7 @@ module.exports = function( i ) {
 	return _this;
 
 } // end: module.exports
-},{"./checker.js":4}],7:[function(require,module,exports){
+},{"./checker.js":5}],8:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -31717,8 +31751,8 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":7}]},{},[3]);
+},{"./angular":8}]},{},[4]);

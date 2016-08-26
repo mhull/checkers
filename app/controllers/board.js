@@ -1,31 +1,34 @@
 var square = require( '../models/square.js' );
 
-module.exports = function( checkers ) {
+module.exports = function( game ) {
 
-	checkers.activeCheckerIndex = - 1;
+	game.activeCheckerIndex = - 1;
 
 	/**
 	 * Board controller
 	 */
-	checkers.controller( 'BoardController', [ '$scope', function( $scope ) {
+	game.controller( 'BoardController', [ function() {
 
-		$scope.squares = [];
+		var board = this;
+
+		board.squares = [];
+
 		for( let i = 0; i < 64; i++  ) {
-			$scope.squares.push( square( i ) );
+			board.squares.push( square( i ) );
 		}
 
-		$scope.squares.each = function( func ) {
+		board.squares.each = function( func ) {
 
-			for( let i = 0; i < $scope.squares.length; i++ ) {
-				func( $scope.squares[ i ] );
+			for( let i = 0; i < board.squares.length; i++ ) {
+				func( board.squares[ i ] );
 			}
 		}
 
 		/**
 		 * Clear highlighted squares
 		 */
-		$scope.clearHighlights = function() {
-			$scope.squares.each( function( square ) {
+		board.clearHighlights = function() {
+			board.squares.each( function( square ) {
 				square.highlight = false;
 			} );
 		}
@@ -33,18 +36,18 @@ module.exports = function( checkers ) {
 		/**
 		 * Attempt to move a checker when clicked
 		 */
-		$scope.initCheckerMove = function( square ) {
+		board.initCheckerMove = function( square ) {
 
-			// make sure no other checkers are active
-			if( checkers.activeCheckerIndex > -1 ) {
+			// make sure no other game are active
+			if( game.activeCheckerIndex > -1 ) {
 				return;
 			}
 
-			var upLeft = $scope.squares[ square.index - 9 ];
-			var upRight = $scope.squares[ square.index - 7 ];
+			var upLeft = board.squares[ square.index - 9 ];
+			var upRight = board.squares[ square.index - 7 ];
 
-			var downLeft = $scope.squares[ square.index + 7  ];
-			var downRight = $scope.squares[ square.index + 9 ];
+			var downLeft = board.squares[ square.index + 7  ];
+			var downRight = board.squares[ square.index + 9 ];
 
 			// the legal squares we could move to
 			var legalSquares = [];
@@ -92,33 +95,33 @@ module.exports = function( checkers ) {
 			// set this checker as active
 			if( legalSquares.length > 0 ) {
 				square.checker.active = true;
-				checkers.activeCheckerIndex = square.index;
+				game.activeCheckerIndex = square.index;
 			}
 
 			// highlight any legal squares
 			for( index in legalSquares ) {
-				$scope.squares[ legalSquares[ index ] ].highlight = true;
+				board.squares[ legalSquares[ index ] ].highlight = true;
 			}
 
 		} // end: initCheckerMove()
 
-		$scope.cancelCheckerMove = function( square ) {
+		board.cancelCheckerMove = function( square ) {
 
 			square.checker.active = false;
-			checkers.activeCheckerIndex = -1;
+			game.activeCheckerIndex = -1;
 
-			for( index in $scope.squares ) {
-				$scope.squares[index].highlight = false;
+			for( index in board.squares ) {
+				board.squares[index].highlight = false;
 			}
 		} // end: cancelCheckerMove()
 
 		/**
 		 * Move a checker when a legal highlighted square is clicked
 		 */
-		$scope.confirmCheckerMove = function( _new_square ) {
+		board.confirmCheckerMove = function( _new_square ) {
 
-			var index = checkers.activeCheckerIndex;
-			var _old_square = $scope.squares[ index ];
+			var index = game.activeCheckerIndex;
+			var _old_square = board.squares[ index ];
 
 			// unset the old checker
 			var checker = _old_square.checker;
@@ -128,14 +131,23 @@ module.exports = function( checkers ) {
 			checker.active = false;
 			_new_square.checker = checker;
 
-			$scope.clearHighlights();
-			checkers.activeCheckerIndex = -1;
+			board.clearHighlights();
+			game.activeCheckerIndex = -1;
 
 		} // end: confirmCheckerMove()
 
 	} ] ); // end: board controller
 
-	checkers.controller( 'CheckerController', [ '$scope', function( $scope ) {
+	game.directive( 'board', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'views/board.html',
+			controller: 'BoardController',
+			controllerAs: 'board',
+		};
+	} );
+
+	game.controller( 'CheckerController', [ '$scope', function( $scope ) {
 
 		$scope.color = _this.color;
 	} ] );

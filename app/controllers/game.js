@@ -1,7 +1,19 @@
 module.exports = function( game ) {
-	game.controller( 'GameController', [ '$scope', function( $scope ) {
 
-		$scope.message = 'Welcome. Black goes first.';
-		$scope.turns = 0;
+	game.controller( 'GameController', [ function( $scope ) {
+
+		var game = this;
+
+		game.message = 'Welcome. Black goes first.';
+		game.turns = 0;
 	} ] );
+
+	game.directive( 'game', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'views/game.html',
+			controller: 'GameController',
+			controllerAs: 'game'
+		};
+	} );
 };

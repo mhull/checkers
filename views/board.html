@@ -1,0 +1,17 @@
+<div id='board' >
+	<div 
+		ng-repeat="square in board.squares"
+		class="square {{square.color}} row-{{square.row}} col-{{square.col}}
+		{{square.highlight ? 'highlight' : ''}}"
+		ng-click="square.highlight ? board.confirmCheckerMove( square ) : null"
+	>{{square.index}}
+		<div 
+			ng-controller='CheckerController'
+			class="{{ square.checker ? 'checker' : '' }} {{ square.checker.color }}"
+			ng-click="square.checker ? 
+				( square.checker.active ? 
+					board.cancelCheckerMove( square ) : board.initCheckerMove( square ) 
+				) : null"
+		></div>
+	</div>
+</div>
