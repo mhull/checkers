@@ -1,5 +1,5 @@
 /**  
- * Exports the main `checkers` object into the main scope
+ * Exports the main `game` object into the main scope
  */
 module.exports = game();
 function game() {

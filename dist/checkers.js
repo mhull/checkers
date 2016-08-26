@@ -147,13 +147,25 @@ module.exports = function( game ) {
 			controllerAs: 'board',
 		};
 	} );
+}
+},{"../models/square.js":8}],2:[function(require,module,exports){
+module.exports = function( game ) {
 
 	game.controller( 'CheckerController', [ '$scope', function( $scope ) {
 
 		$scope.color = _this.color;
 	} ] );
+
+	game.directive( 'checker', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'views/checker.html',
+			controller: 'CheckerController',
+			controllerAs: 'checker',
+		};
+	} );
 }
-},{"../models/square.js":7}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 module.exports = function( game ) {
 
 	game.controller( 'GameController', [ function( $scope ) {
@@ -173,7 +185,7 @@ module.exports = function( game ) {
 		};
 	} );
 };
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 module.exports = function( game ) {
 
 	game.controller( 'SquareController', [ function() {
@@ -181,14 +193,24 @@ module.exports = function( game ) {
 		var square = this;
 
 	} ] );
+
+	game.directive( 'square', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'views/square.html',
+			controller: 'SquareController',
+			controllerAs: 'square',
+		};
+	} );
 };
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var game = require( './models/game.js' );
 
 var gameController = require( './controllers/game.js' )( game );
 var boardController = require( './controllers/board.js' )( game );
 var squareController = require( './controllers/square.js' )( game );
-},{"./controllers/board.js":1,"./controllers/game.js":2,"./controllers/square.js":3,"./models/game.js":6}],5:[function(require,module,exports){
+var checkerController = require( './controllers/checker.js' )( game );
+},{"./controllers/board.js":1,"./controllers/checker.js":2,"./controllers/game.js":3,"./controllers/square.js":4,"./models/game.js":7}],6:[function(require,module,exports){
 /**
  * Checker factory module
  *
@@ -203,9 +225,9 @@ module.exports = function ( i ) {
 
 	return _this;
 };
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /**  
- * Exports the main `checkers` object into the main scope
+ * Exports the main `game` object into the main scope
  */
 module.exports = game();
 function game() {
@@ -221,7 +243,7 @@ function game() {
 
 	return _this;
 };
-},{"angular":9}],7:[function(require,module,exports){
+},{"angular":10}],8:[function(require,module,exports){
 var checker = require( './checker.js' );
 
 /**
@@ -277,7 +299,7 @@ module.exports = function( i ) {
 	return _this;
 
 } // end: module.exports
-},{"./checker.js":5}],8:[function(require,module,exports){
+},{"./checker.js":6}],9:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -31751,8 +31773,8 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":8}]},{},[4]);
+},{"./angular":9}]},{},[5]);

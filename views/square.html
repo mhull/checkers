@@ -1,0 +1,7 @@
+<div 
+	class="square {{_square.color}} row-{{_square.row}} col-{{_square.col}}
+	{{_square.highlight ? 'highlight' : ''}}"
+	ng-click="_square.highlight ? board.confirmCheckerMove( _square ) : null"
+>{{_square.index}}
+	<checker></checker>
+</div>

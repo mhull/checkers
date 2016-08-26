@@ -146,9 +146,4 @@ module.exports = function( game ) {
 			controllerAs: 'board',
 		};
 	} );
-
-	game.controller( 'CheckerController', [ '$scope', function( $scope ) {
-
-		$scope.color = _this.color;
-	} ] );
 }

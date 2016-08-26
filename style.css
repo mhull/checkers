@@ -39,10 +39,6 @@ main {
 	position: relative;
 }
 
-.square:nth-of-type( 8n + 1 ) {
-	clear: left;
-}
-
 .red.square {
 	background: red;
 }
