@@ -3,8 +3,6 @@ var square = require( '../models/square.js' );
 
 module.exports = function( game ) {
 
-	game.activeCheckerIndex = - 1;
-
 	/**
 	 * Board controller
 	 */
@@ -148,7 +146,7 @@ module.exports = function( game ) {
 		};
 	} );
 }
-},{"../models/square.js":9}],2:[function(require,module,exports){
+},{"../models/square.js":8}],2:[function(require,module,exports){
 module.exports = function( game ) {
 
 	game.controller( 'CheckerController', [ '$scope', function( $scope ) {
@@ -168,24 +166,6 @@ module.exports = function( game ) {
 },{}],3:[function(require,module,exports){
 module.exports = function( game ) {
 
-	game.controller( 'GameController', [ function( $scope ) {
-
-		var game = this;
-
-	} ] );
-
-	game.directive( 'game', function() {
-		return {
-			restrict: 'E',
-			templateUrl: 'views/game.html',
-			controller: 'GameController',
-			controllerAs: 'game'
-		};
-	} );
-};
-},{}],4:[function(require,module,exports){
-module.exports = function( game ) {
-
 	game.controller( 'SquareController', [ function() {
 
 		var square = this;
@@ -201,7 +181,7 @@ module.exports = function( game ) {
 		};
 	} );
 };
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 module.exports = function( game ) {
 
 	game.controller( 'StatusController', [ function() {
@@ -221,15 +201,14 @@ module.exports = function( game ) {
 		}
 	} );
 }
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var game = require( './models/game.js' );
 
-var gameController = require( './controllers/game.js' )( game );
 var statusController = require( './controllers/status.js' )( game );
 var boardController = require( './controllers/board.js' )( game );
 var squareController = require( './controllers/square.js' )( game );
 var checkerController = require( './controllers/checker.js' )( game );
-},{"./controllers/board.js":1,"./controllers/checker.js":2,"./controllers/game.js":3,"./controllers/square.js":4,"./controllers/status.js":5,"./models/game.js":8}],7:[function(require,module,exports){
+},{"./controllers/board.js":1,"./controllers/checker.js":2,"./controllers/square.js":3,"./controllers/status.js":4,"./models/game.js":7}],6:[function(require,module,exports){
 /**
  * Checker factory module
  *
@@ -244,7 +223,7 @@ module.exports = function ( i ) {
 
 	return _this;
 };
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /**  
  * Exports the main `game` object into the main scope
  */
@@ -257,12 +236,20 @@ function game() {
 	var angular = require( 'angular' );
 	_this = angular.module( 'checkers', [] );
 
+	_this.directive( 'game', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'views/game.html',
+		};
+	} );
+
 	_this.activePlayer = 'black';
 	_this.activeChecker = null;
+	_this.activeCheckerIndex = - 1;
 
 	return _this;
 };
-},{"angular":11}],9:[function(require,module,exports){
+},{"angular":10}],8:[function(require,module,exports){
 var checker = require( './checker.js' );
 
 /**
@@ -318,7 +305,7 @@ module.exports = function( i ) {
 	return _this;
 
 } // end: module.exports
-},{"./checker.js":7}],10:[function(require,module,exports){
+},{"./checker.js":6}],9:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -31792,8 +31779,8 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":10}]},{},[6]);
+},{"./angular":9}]},{},[5]);

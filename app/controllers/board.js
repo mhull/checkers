@@ -2,8 +2,6 @@ var square = require( '../models/square.js' );
 
 module.exports = function( game ) {
 
-	game.activeCheckerIndex = - 1;
-
 	/**
 	 * Board controller
 	 */
