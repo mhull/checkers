@@ -4,8 +4,6 @@ module.exports = function( game ) {
 
 		var game = this;
 
-		game.message = 'Welcome. Black goes first.';
-		game.turns = 0;
 	} ] );
 
 	game.directive( 'game', function() {
