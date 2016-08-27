@@ -1,12 +1,10 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var square = require( '../models/square.js' );
-
 module.exports = function( game ) {
 
 	/**
 	 * Board controller
 	 */
-	game.controller( 'BoardController', [ 'checkers', function( checkers ) {
+	game.controller( 'BoardController', [ 'checkers', 'square', function( checkers, square ) {
 
 		var board = this;
 		checkers.board = function() { return board; };
@@ -147,12 +145,12 @@ module.exports = function( game ) {
 		};
 	} );
 }
-},{"../models/square.js":8}],2:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 module.exports = function( game ) {
 
-	game.controller( 'CheckerController', [ '$scope', function( $scope ) {
+	game.controller( 'CheckerController', [ function() {
 
-		$scope.color = _this.color;
+		var checker = this;
 	} ] );
 
 	game.directive( 'checker', function() {
@@ -263,9 +261,17 @@ function game() {
 		return checkers;
 	} ] );
 
+	/**
+	 * Register the `square` service with Angular
+	 */
+	var square = require( '../models/square.js' );
+	_this.factory( 'square', [ function() {
+		return square;
+	} ] );
+ 
 	return _this;
 };
-},{"angular":10}],8:[function(require,module,exports){
+},{"../models/square.js":8,"angular":10}],8:[function(require,module,exports){
 var checker = require( './checker.js' );
 
 /**

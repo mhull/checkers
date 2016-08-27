@@ -1,8 +1,8 @@
 module.exports = function( game ) {
 
-	game.controller( 'CheckerController', [ '$scope', function( $scope ) {
+	game.controller( 'CheckerController', [ function() {
 
-		$scope.color = _this.color;
+		var checker = this;
 	} ] );
 
 	game.directive( 'checker', function() {

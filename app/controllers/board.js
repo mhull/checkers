@@ -1,11 +1,9 @@
-var square = require( '../models/square.js' );
-
 module.exports = function( game ) {
 
 	/**
 	 * Board controller
 	 */
-	game.controller( 'BoardController', [ 'checkers', function( checkers ) {
+	game.controller( 'BoardController', [ 'checkers', 'square', function( checkers, square ) {
 
 		var board = this;
 		checkers.board = function() { return board; };

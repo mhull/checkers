@@ -30,5 +30,13 @@ function game() {
 		return checkers;
 	} ] );
 
+	/**
+	 * Register the `square` service with Angular
+	 */
+	var square = require( '../models/square.js' );
+	_this.factory( 'square', [ function() {
+		return square;
+	} ] );
+ 
 	return _this;
 };
