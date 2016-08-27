@@ -17,9 +17,17 @@ function game() {
 		};
 	} );
 
-	_this.activePlayer = 'black';
-	_this.activeChecker = null;
-	_this.activeCheckerIndex = - 1;
+	/**
+	 * Register the `checkers` service with Angular
+	 */
+	_this.factory( 'checkers', [ function() {
+
+		var checkers = {};
+		checkers.activePlayer = 'black';
+		checkers.activeChecker = null;
+		checkers.activeCheckerIndex = - 1;
+		return checkers;
+	} ] );
 
 	return _this;
 };

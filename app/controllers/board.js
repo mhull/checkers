@@ -5,7 +5,7 @@ module.exports = function( game ) {
 	/**
 	 * Board controller
 	 */
-	game.controller( 'BoardController', [ function() {
+	game.controller( 'BoardController', [ 'checkers', function( checkers ) {
 
 		var board = this;
 
@@ -37,7 +37,7 @@ module.exports = function( game ) {
 		board.initCheckerMove = function( square ) {
 
 			// make sure no other game are active
-			if( game.activeCheckerIndex > -1 ) {
+			if( checkers.activeCheckerIndex > -1 ) {
 				return;
 			}
 
@@ -93,7 +93,7 @@ module.exports = function( game ) {
 			// set this checker as active
 			if( legalSquares.length > 0 ) {
 				square.checker.active = true;
-				game.activeCheckerIndex = square.index;
+				checkers.activeCheckerIndex = square.index;
 			}
 
 			// highlight any legal squares
@@ -106,7 +106,7 @@ module.exports = function( game ) {
 		board.cancelCheckerMove = function( square ) {
 
 			square.checker.active = false;
-			game.activeCheckerIndex = -1;
+			checkers.activeCheckerIndex = -1;
 
 			for( index in board.squares ) {
 				board.squares[index].highlight = false;
@@ -118,7 +118,7 @@ module.exports = function( game ) {
 		 */
 		board.confirmCheckerMove = function( _new_square ) {
 
-			var index = game.activeCheckerIndex;
+			var index = checkers.activeCheckerIndex;
 			var _old_square = board.squares[ index ];
 
 			// unset the old checker
@@ -130,7 +130,7 @@ module.exports = function( game ) {
 			_new_square.checker = checker;
 
 			board.clearHighlights();
-			game.activeCheckerIndex = -1;
+			checkers.activeCheckerIndex = -1;
 
 		} // end: confirmCheckerMove()
 
