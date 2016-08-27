@@ -23,6 +23,7 @@ function game() {
 	_this.factory( 'checkers', [ function() {
 
 		var checkers = {};
+		checkers.board = {};
 		checkers.activePlayer = 'black';
 		checkers.activeChecker = null;
 		checkers.activeCheckerIndex = - 1;

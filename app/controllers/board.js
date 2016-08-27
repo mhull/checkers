@@ -8,6 +8,7 @@ module.exports = function( game ) {
 	game.controller( 'BoardController', [ 'checkers', function( checkers ) {
 
 		var board = this;
+		checkers.board = function() { return board; };
 
 		board.squares = [];
 
