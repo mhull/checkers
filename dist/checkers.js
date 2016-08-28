@@ -132,6 +132,8 @@ module.exports = function( game ) {
 			board.clearHighlights();
 			checkers.activeCheckerIndex = -1;
 
+			checkers.activePlayer = ( checkers.activePlayer + 1 ) % 2;
+
 		} // end: confirmCheckerMove()
 
 	} ] ); // end: board controller
@@ -235,22 +237,7 @@ var statusController = require( './controllers/status.js' )( game );
 var boardController = require( './controllers/board.js' )( game );
 var squareController = require( './controllers/square.js' )( game );
 var checkerController = require( './controllers/checker.js' )( game );
-},{"./controllers/board.js":1,"./controllers/checker.js":2,"./controllers/square.js":3,"./controllers/status.js":4,"./models/game.js":7}],6:[function(require,module,exports){
-/**
- * Checker factory module
- *
- * @package checkers
- */
-module.exports = function ( i ) {
-
-	var _this = {};
-
-	_this.color = ( i < 24 ) ? 'red' : 'black';
-	_this.active = false;
-
-	return _this;
-};
-},{}],7:[function(require,module,exports){
+},{"./controllers/board.js":1,"./controllers/checker.js":2,"./controllers/square.js":3,"./controllers/status.js":4,"./models/game.js":6}],6:[function(require,module,exports){
 /**  
  * Exports the main `game` object into the main scope
  */
@@ -293,9 +280,7 @@ function game() {
  
 	return _this;
 };
-},{"../models/square.js":8,"angular":10}],8:[function(require,module,exports){
-var checker = require( './checker.js' );
-
+},{"../models/square.js":7,"angular":9}],7:[function(require,module,exports){
 /**
  * Square factory module
  *
@@ -343,13 +328,15 @@ module.exports = function( i ) {
 	if( 'black' === _this.color && 
 		( ( i < 24 ) || ( ( 63 - i )  < 24 ) ) 
 	) {
-		_this.checker = checker( i );
+		_this.checker = {};
+		_this.checker.color = ( i < 24 ) ? 'red' : 'black';
+		_this.checker.active = false;
 	}
 
 	return _this;
 
 } // end: module.exports
-},{"./checker.js":6}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -31823,8 +31810,8 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":9}]},{},[5]);
+},{"./angular":8}]},{},[5]);

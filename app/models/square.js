@@ -1,5 +1,3 @@
-var checker = require( './checker.js' );
-
 /**
  * Square factory module
  *
@@ -47,7 +45,9 @@ module.exports = function( i ) {
 	if( 'black' === _this.color && 
 		( ( i < 24 ) || ( ( 63 - i )  < 24 ) ) 
 	) {
-		_this.checker = checker( i );
+		_this.checker = {};
+		_this.checker.color = ( i < 24 ) ? 'red' : 'black';
+		_this.checker.active = false;
 	}
 
 	return _this;

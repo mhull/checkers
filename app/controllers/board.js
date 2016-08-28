@@ -131,6 +131,8 @@ module.exports = function( game ) {
 			board.clearHighlights();
 			checkers.activeCheckerIndex = -1;
 
+			checkers.activePlayer = ( checkers.activePlayer + 1 ) % 2;
+
 		} // end: confirmCheckerMove()
 
 	} ] ); // end: board controller
