@@ -1,7 +1,4 @@
 <div 
-	class="{{ _square.checker ? 'checker' : '' }} {{ _square.checker.color }}"
-	ng-click="_square.checker ? 
-		( _square.checker.active ? 
-			board.cancelCheckerMove( _square ) : board.initCheckerMove( _square ) 
-		) : null"
-></div>
+	ng-class="[ _square.checker ? 'checker' : '', _square.checker.color ]"
+	ng-click="checker.click( _square )"
+>{{ checker.init( _square ) }}</div>

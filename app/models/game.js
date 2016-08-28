@@ -24,7 +24,7 @@ function game() {
 
 		var checkers = {};
 		checkers.board = {};
-		checkers.activePlayer = 'black';
+		checkers.activePlayer = 0; // 0: black, 1: red
 		checkers.activeChecker = null;
 		checkers.activeCheckerIndex = - 1;
 		return checkers;
