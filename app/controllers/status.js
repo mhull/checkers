@@ -1,8 +1,9 @@
 module.exports = function( game ) {
 
-	game.controller( 'StatusController', [ function() {
+	game.controller( 'StatusController', [ 'checkers', function( checkers ) {
 
 		var status = this;
+		checkers.status = function() { return status; }
 
 		status.message = 'Welcome. Black goes first.';
 		status.turns = 0;

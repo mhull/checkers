@@ -129,10 +129,7 @@ module.exports = function( game ) {
 			checker.active = false;
 			_new_square.checker = checker;
 
-			board.clearHighlights();
-			checkers.activeCheckerIndex = -1;
-
-			checkers.activePlayer = ( checkers.activePlayer + 1 ) % 2;
+			checkers.play();
 
 		} // end: confirmCheckerMove()
 
@@ -213,9 +210,10 @@ module.exports = function( game ) {
 },{}],4:[function(require,module,exports){
 module.exports = function( game ) {
 
-	game.controller( 'StatusController', [ function() {
+	game.controller( 'StatusController', [ 'checkers', function( checkers ) {
 
 		var status = this;
+		checkers.status = function() { return status; }
 
 		status.message = 'Welcome. Black goes first.';
 		status.turns = 0;
@@ -267,6 +265,18 @@ function game() {
 		checkers.activePlayer = 0; // 0: black, 1: red
 		checkers.activeChecker = null;
 		checkers.activeCheckerIndex = - 1;
+
+		checkers.activePlayerColor = function() {
+			return 0 === checkers.activePlayer ? 'Black' : 'Red';
+		}
+		checkers.play = function() {
+			checkers.board().clearHighlights();
+			checkers.activeCheckerIndex = -1;
+
+			checkers.activePlayer = ( checkers.activePlayer + 1 ) % 2;
+			checkers.status().message = checkers.activePlayerColor() + ' goes next.';
+			checkers.status().turns++;
+		}
 		return checkers;
 	} ] );
 

@@ -27,6 +27,18 @@ function game() {
 		checkers.activePlayer = 0; // 0: black, 1: red
 		checkers.activeChecker = null;
 		checkers.activeCheckerIndex = - 1;
+
+		checkers.activePlayerColor = function() {
+			return 0 === checkers.activePlayer ? 'Black' : 'Red';
+		}
+		checkers.play = function() {
+			checkers.board().clearHighlights();
+			checkers.activeCheckerIndex = -1;
+
+			checkers.activePlayer = ( checkers.activePlayer + 1 ) % 2;
+			checkers.status().message = checkers.activePlayerColor() + ' goes next.';
+			checkers.status().turns++;
+		}
 		return checkers;
 	} ] );
 

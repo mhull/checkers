@@ -128,10 +128,7 @@ module.exports = function( game ) {
 			checker.active = false;
 			_new_square.checker = checker;
 
-			board.clearHighlights();
-			checkers.activeCheckerIndex = -1;
-
-			checkers.activePlayer = ( checkers.activePlayer + 1 ) % 2;
+			checkers.play();
 
 		} // end: confirmCheckerMove()
 
