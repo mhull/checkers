@@ -35,7 +35,7 @@ module.exports = function( game ) {
 		 */
 		board.initCheckerMove = function( square ) {
 
-			// make sure no other game are active
+			// make sure no other checkers are active
 			if( checkers.activeCheckerIndex > -1 ) {
 				return;
 			}
@@ -58,16 +58,37 @@ module.exports = function( game ) {
 					return;
 				}
 
-				// if we can move to the upper left
-				if( 0 < square.col && ! upLeft.checker ) {
-					legalSquares.push( upLeft.index );
-				}
+				// if we have a square to the upper left
+				if( 0 < square.col ) {
+
+					// if the square is empty
+					if( ! upLeft.checker ) {
+						legalSquares.push( upLeft.index );
+					}
+
+					// if there is a checker present that we might be able to skip
+					else {
+
+						if(
+							'red' === upLeft.checker.color &&
+							1 < square.col &&
+							1 <  square.row
+						) {
+
+							var landingSquare = board.squares[ upLeft.index - 9 ];
+							if( ! landingSquare.checker ) {
+								legalSquares.push( landingSquare.index );
+							}
+						} // end if: we can skip
+					} // end if: checker present in upper left
+				} // end if: square not in far left column
 
 				// if we can move to the upper right
 				if( 7 > square.col  && ! upRight.checker ) {
 					legalSquares.push( upRight.index );
 				}
-			}
+
+			} // end if: black checker was clicked to initialize a move
 
 			/**
 			 * If a red checker was clicked
