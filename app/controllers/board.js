@@ -208,9 +208,38 @@ module.exports = function( game ) {
 			checker.active = false;
 			_new_square.checker = checker;
 
+			// remove any skipped checkers
+			board.removeSkipped( _old_square, _new_square );
+
 			checkers.play();
 
 		} // end: confirmCheckerMove()
 
+		board.removeSkipped = function( _old_square, _new_square ) {
+
+			var _skipped_square;
+			var movedDistance = _old_square.index - _new_square.index;
+
+			// if skipping to the upper left
+			if( movedDistance === 18 ) {
+				_skipped_square = board.squares[ _old_square.index - 9 ];
+			}
+			// if skipping to the upper right
+			if( movedDistance === 14 ) {
+				_skipped_square = board.squares[ _old_square.index - 7 ];
+			}
+			// if skipping to the lower left
+			if( movedDistance === -14 ) {
+				_skipped_square = board.squares[ _old_square.index + 7 ];
+			}
+			// if skipping to the lower right
+			if( movedDistance === -18 ) {
+				_skipped_square = board.squares[ _old_square.index + 9 ];
+			}
+
+			if( _skipped_square ) {
+				_skipped_square.checker = null;
+			}
+		}
 	} ] ); // end: board controller
 }
