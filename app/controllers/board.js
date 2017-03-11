@@ -154,13 +154,4 @@ module.exports = function( game ) {
 		} // end: confirmCheckerMove()
 
 	} ] ); // end: board controller
-
-	game.directive( 'board', function() {
-		return {
-			restrict: 'E',
-			templateUrl: 'views/board.html',
-			controller: 'BoardController',
-			controllerAs: 'board',
-		};
-	} );
 }

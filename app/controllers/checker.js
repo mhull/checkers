@@ -26,13 +26,4 @@ module.exports = function( game ) {
 				( 1 === checkers.activePlayer && checker.color === 'red' );
 		}
 	} ] );
-
-	game.directive( 'checker', function() {
-		return {
-			restrict: 'E',
-			templateUrl: 'views/checker.html',
-			controller: 'CheckerController',
-			controllerAs: 'checker',
-		};
-	} );
 }

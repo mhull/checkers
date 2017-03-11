@@ -11,13 +11,4 @@ module.exports = function( game ) {
 		}
 
 	} ] );
-
-	game.directive( 'square', function() {
-		return {
-			restrict: 'E',
-			templateUrl: 'views/square.html',
-			controller: 'SquareController',
-			controllerAs: 'square',
-		};
-	} );
 };

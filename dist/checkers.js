@@ -155,15 +155,6 @@ module.exports = function( game ) {
 		} // end: confirmCheckerMove()
 
 	} ] ); // end: board controller
-
-	game.directive( 'board', function() {
-		return {
-			restrict: 'E',
-			templateUrl: 'views/board.html',
-			controller: 'BoardController',
-			controllerAs: 'board',
-		};
-	} );
 }
 },{}],2:[function(require,module,exports){
 module.exports = function( game ) {
@@ -194,15 +185,6 @@ module.exports = function( game ) {
 				( 1 === checkers.activePlayer && checker.color === 'red' );
 		}
 	} ] );
-
-	game.directive( 'checker', function() {
-		return {
-			restrict: 'E',
-			templateUrl: 'views/checker.html',
-			controller: 'CheckerController',
-			controllerAs: 'checker',
-		};
-	} );
 }
 },{}],3:[function(require,module,exports){
 module.exports = function( game ) {
@@ -218,15 +200,6 @@ module.exports = function( game ) {
 		}
 
 	} ] );
-
-	game.directive( 'square', function() {
-		return {
-			restrict: 'E',
-			templateUrl: 'views/square.html',
-			controller: 'SquareController',
-			controllerAs: 'square',
-		};
-	} );
 };
 },{}],4:[function(require,module,exports){
 module.exports = function( game ) {
@@ -239,15 +212,6 @@ module.exports = function( game ) {
 		status.message = 'Welcome. Black goes first.';
 		status.turns = 0;
 	} ] );
-
-	game.directive( 'status', function() {
-		return {
-			restrict: 'E',
-			templateUrl: 'views/status.html',
-			controller: 'StatusController',
-			controllerAs: 'status',
-		}
-	} );
 }
 },{}],5:[function(require,module,exports){
 var game = require( './models/game.js' );
@@ -267,19 +231,55 @@ function game() {
 	 * The main `checkers` angular module
 	 */
 	var angular = require( 'angular' );
-	_this = angular.module( 'checkers', [] );
+	var game = angular.module( 'checkers', [] );
 
-	_this.directive( 'game', function() {
+	game.directive( 'game', function() {
 		return {
 			restrict: 'E',
 			templateUrl: 'views/game.html',
 		};
 	} );
 
+	game.directive( 'status', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'views/status.html',
+			controller: 'StatusController',
+			controllerAs: 'status',
+		}
+	} );
+
+	game.directive( 'board', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'views/board.html',
+			controller: 'BoardController',
+			controllerAs: 'board',
+		};
+	} );
+
+	game.directive( 'square', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'views/square.html',
+			controller: 'SquareController',
+			controllerAs: 'square',
+		};
+	} );
+
+	game.directive( 'checker', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'views/checker.html',
+			controller: 'CheckerController',
+			controllerAs: 'checker',
+		};
+	} );
+
 	/**
 	 * Register the `checkers` service with Angular
 	 */
-	_this.factory( 'checkers', [ function() {
+	game.factory( 'checkers', [ function() {
 
 		var checkers = {};
 		checkers.board = {};
@@ -305,11 +305,11 @@ function game() {
 	 * Register the `square` service with Angular
 	 */
 	var square = require( '../models/square.js' );
-	_this.factory( 'square', [ function() {
+	game.factory( 'square', [ function() {
 		return square;
 	} ] );
  
-	return _this;
+	return game;
 };
 },{"../models/square.js":7,"angular":9}],7:[function(require,module,exports){
 /**
