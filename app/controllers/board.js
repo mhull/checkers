@@ -209,7 +209,16 @@ module.exports = function( game ) {
 			_new_square.checker = checker;
 
 			// remove any skipped checkers
-			board.removeSkipped( _old_square, _new_square );
+			if( board.removeSkipped( _old_square, _new_square ) ) {
+
+				// if checker was removed, increment the corresponding player's score
+				if( 'black' === checker.color ) {
+					checkers.status().blackScore++;
+				}
+				else {
+					checkers.status().redScore++;
+				}
+			}
 
 			checkers.play();
 
@@ -239,7 +248,10 @@ module.exports = function( game ) {
 
 			if( _skipped_square ) {
 				_skipped_square.checker = null;
+				return true;
 			}
+
+			return false;
 		}
 	} ] ); // end: board controller
 }
