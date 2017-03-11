@@ -7,7 +7,7 @@ header {
 
 h1 {
 	font-size: 1.5em;
-	margin: 0;
+	margin: 1em 0 ;
 }
 
 #status {
@@ -104,4 +104,21 @@ main {
 .black.checker {
 	background: black;
 	border: solid 1px #ddd;
+}
+
+.double.checker::after {
+	content: '';
+	display: block;
+	height: 100%;
+	width: 100%;
+	border-radius: 50%;
+	border: solid 1px #fff;
+	margin-left: 3px;
+	margin-top: -4px;
+}
+.double.red.checker::after {
+	background: red;
+}
+.double.black.checker::after {
+	background: black;
 }

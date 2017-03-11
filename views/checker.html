@@ -1,4 +1,6 @@
 <div 
-	ng-class="[ _square.checker ? 'checker' : '', _square.checker.color ]"
+	ng-class="[ _square.checker ? 'checker' : '', 
+		_square.checker.color,
+		_square.checker.isDouble ? 'double' : '' ]"
 	ng-click="checker.click( _square )"
 >{{ checker.init( _square ) }}</div>
