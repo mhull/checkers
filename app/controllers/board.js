@@ -59,7 +59,7 @@ module.exports = function( game ) {
 				}
 
 				// if we have a square to the upper left
-				if( 0 < square.col ) {
+				if( 0 < square.col  ) {
 
 					// if the square is empty
 					if( ! upLeft.checker ) {
@@ -81,9 +81,9 @@ module.exports = function( game ) {
 							}
 						} // end if: we can skip
 					} // end if: checker present in upper left
-				} // end if: square not in far left column
+				} // end if: square exists to upper left
 
-				// if we can move to the upper right
+				// if we have a square to the upper right
 				if( 7 > square.col ) {
 
 					// if the square is empty
@@ -104,8 +104,8 @@ module.exports = function( game ) {
 								legalSquares.push( landingSquare.index );
 							}
 						} // end if: we can skip
-					} // end if: checker present in upper left
-				}
+					} // end if: checker present in upper right
+				} // end if: square exists in upper right
 
 			} // end if: black checker was clicked to initialize a move
 
@@ -118,16 +118,56 @@ module.exports = function( game ) {
 					return;
 				}
 
-				// if we can move to the lower left
-				if( 0 < square.col && ! downLeft.checker ) {
-					legalSquares.push( downLeft.index );
-				}
+				// if we have a square to the lower left
+				if( 0 < square.col ) {
 
-				// if we can move to the lower right
-				if( 7 > square.col && ! downRight.checker ) {
-					legalSquares.push( downRight.index );
-				}
-			}
+					// if the square is empty
+					if( ! downLeft.checker ) {
+						legalSquares.push( downLeft.index );
+					}
+
+					// if there is a checker present that we might be able to skip
+					else {
+
+						if(
+							'black' === downLeft.checker.color &&
+							1 < square.col &&
+							6 >  square.row
+						) {
+
+							var landingSquare = board.squares[ downLeft.index + 7 ];
+							if( ! landingSquare.checker ) {
+								legalSquares.push( landingSquare.index );
+							}
+						} // end if: we can skip
+					} // end if: checker present in lower left
+				} // end if: square exists to lower left
+
+				// if we have a square to the lower right
+				if( 7 > square.col ) {
+
+					// if the square is empty
+					if( ! downRight.checker ) {
+						legalSquares.push( downRight.index );
+					}
+
+					// if there is a checker present that we might be able to skip
+					else {
+
+						if(
+							'black' === downRight.checker.color &&
+							6 > square.col &&
+							6 >  square.row
+						) {
+
+							var landingSquare = board.squares[ downRight.index + 9 ];
+							if( ! landingSquare.checker ) {
+								legalSquares.push( landingSquare.index );
+							}
+						} // end if: we can skip
+					} // end if: checker present in lower right
+				} // end if: square exists to lower right
+			} // end if: red checker was clicked to initialize a move
 
 			// set this checker as active
 			if( legalSquares.length > 0 ) {
