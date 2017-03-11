@@ -220,6 +220,9 @@ module.exports = function( game ) {
 				}
 			}
 
+			// if the player needs to be doubled
+			board.maybeDouble( _new_square );
+
 			checkers.play();
 
 		} // end: confirmCheckerMove()
@@ -252,6 +255,21 @@ module.exports = function( game ) {
 			}
 
 			return false;
+		} // end: removeSkipped()
+
+		board.maybeDouble = function( _new_square ) {
+
+			if( _new_square.checker.isDouble ) {
+				return;
+			}
+
+			if( 'red' == _new_square.checker.color && _new_square.row === 7 ) {
+				_new_square.checker.isDouble = true;
+			}
+
+			if( 'black' == _new_square.checker.color && _new_square.row === 0 ) {
+				_new_square.checker.isDouble = true;
+			}
 		}
 	} ] ); // end: board controller
 }
