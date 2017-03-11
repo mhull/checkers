@@ -216,10 +216,10 @@ module.exports = function( game ) {
 },{}],5:[function(require,module,exports){
 var game = require( './models/game.js' );
 
-var statusController = require( './controllers/status.js' )( game );
-var boardController = require( './controllers/board.js' )( game );
-var squareController = require( './controllers/square.js' )( game );
-var checkerController = require( './controllers/checker.js' )( game );
+require( './controllers/status.js' )( game );
+require( './controllers/board.js' )( game );
+require( './controllers/square.js' )( game );
+require( './controllers/checker.js' )( game );
 },{"./controllers/board.js":1,"./controllers/checker.js":2,"./controllers/square.js":3,"./controllers/status.js":4,"./models/game.js":6}],6:[function(require,module,exports){
 /**  
  * Exports the main `game` object into the main scope
