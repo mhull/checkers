@@ -84,8 +84,27 @@ module.exports = function( game ) {
 				} // end if: square not in far left column
 
 				// if we can move to the upper right
-				if( 7 > square.col  && ! upRight.checker ) {
-					legalSquares.push( upRight.index );
+				if( 7 > square.col ) {
+
+					// if the square is empty
+					if( ! upRight.checker ) {
+						legalSquares.push( upRight.index );
+					}
+					// if there is a checker present that we might be able to skip
+					else {
+
+						if(
+							'red' === upRight.checker.color &&
+							6 > square.col &&
+							1 <  square.row
+						) {
+
+							var landingSquare = board.squares[ upRight.index - 7 ];
+							if( ! landingSquare.checker ) {
+								legalSquares.push( landingSquare.index );
+							}
+						} // end if: we can skip
+					} // end if: checker present in upper left
 				}
 
 			} // end if: black checker was clicked to initialize a move
