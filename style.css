@@ -6,11 +6,27 @@ header {
 }
 
 h1 {
-	padding-bottom: 0;
+	font-size: 1.5em;
+	margin: 0;
 }
 
 #status {
 	margin: 1em 0;
+}
+
+#status #details h2 {
+	font-size: 1.2em;
+	margin-bottom: 0;
+}
+
+#status #details hr {
+	width: 100px;
+	margin: 0.25em auto 1em;
+}
+
+#status #details .score {
+	display: inline-block;
+	padding-right: 1em;
 }
 
 /**

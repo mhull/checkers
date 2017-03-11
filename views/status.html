@@ -1,5 +1,10 @@
 <div id="status">
 	<div id="message">{{ status.message }}</div>
-	<div id='turns'>Turns: {{ status.turns }}</div>
-	<div id="details"></div>
+	<div id='turns'>Counter: {{ status.turns }}</div>
+	<div id="details">
+		<h2>Score</h2>
+		<hr />
+		<div class='score'><label>Black:</label> {{ status.blackScore }}</div>
+		<div class='score'><label>Red:</label> {{ status.redScore }}</div>
+	</div>
 </div>

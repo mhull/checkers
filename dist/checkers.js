@@ -299,6 +299,9 @@ module.exports = function( game ) {
 
 		status.message = 'Welcome. Black goes first.';
 		status.turns = 0;
+
+		status.blackScore = 0;
+		status.redScore = 0;
 	} ] );
 }
 },{}],5:[function(require,module,exports){
